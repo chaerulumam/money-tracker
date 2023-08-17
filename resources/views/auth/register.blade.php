@@ -39,7 +39,7 @@
                <div class="social-auth-links text-center">
                   <p>- OR -</p>
                   
-                  <a href="#" class="btn btn-block btn-danger">
+                  <a href="{{ route('auth.login.google') }}" class="btn btn-block btn-danger">
                   <i class="fab fa-google mr-2"></i>
                   Sign up using Google
                   </a>

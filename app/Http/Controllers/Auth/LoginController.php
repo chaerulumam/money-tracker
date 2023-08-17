@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+use App\Repositories\UserRepositoryInterface;
 
 class LoginController extends Controller
 {
@@ -51,5 +52,30 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('auth.login');
+    }
+
+    public function google()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleCallbackSocialite()
+    {
+        $callback = Socialite::driver('google')->stateless()->user();
+
+        $data = [
+            'name' => $callback->getName(),
+            'email' => $callback->getEmail()
+        ];
+
+        $user = $this->userRepository->findByEmail($data['email']);
+
+        if (!$user) {
+            $user = $this->userRepository->create($data);
+        }
+
+        Auth::login($user, true);
+
+        return redirect()->route('dashboard');
     }
 }
