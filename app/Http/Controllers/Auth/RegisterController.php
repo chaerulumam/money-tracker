@@ -38,7 +38,9 @@ class RegisterController extends Controller
         ]);
 
         $credentials = $request->only('name', 'email', 'password');
+        // trying to authenticate the user based on the provided credentials
         Auth::attempt($credentials);
+        // regenerate session after succces logged in
         $request->session()->regenerate();
         return redirect()->route('/')
             ->withSuccess('You have successfully registered & logged in!');
