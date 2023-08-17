@@ -4,11 +4,19 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    protected $userRepository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function index()
     {
         return view('auth.login');
@@ -21,10 +29,10 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if ($this->userRepository->attemptLogin($credentials)) {
             return redirect()->route('dashboard');
         } else {
-            $user = User::where('email', $credentials['email'])->first();
+            $user = $this->userRepository->findByEmail($credentials['email']);
 
             if ($user) {
                 return back()->withErrors(['password' => 'Credentials does not match']);
