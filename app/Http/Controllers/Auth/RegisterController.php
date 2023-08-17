@@ -33,7 +33,7 @@ class RegisterController extends Controller
         $credentials = $request->only('name', 'email', 'password');
         Auth::attempt($credentials);
         $request->session()->regenerate();
-        return redirect()->route('/')
+        return redirect()->route('dashboard')
             ->withSuccess('You have successfully registered & logged in!');
     }
 }
