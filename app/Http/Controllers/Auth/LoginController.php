@@ -32,6 +32,7 @@ class LoginController extends Controller
         if ($this->userRepository->attemptLogin($credentials)) {
             return redirect()->route('dashboard');
         } else {
+            // get email based users table for credentials check
             $user = $this->userRepository->findByEmail($credentials['email']);
 
             if ($user) {
@@ -46,8 +47,10 @@ class LoginController extends Controller
     {
         Auth::logout();
 
+        // Invalidate all session user logged in before.
         $request->session()->invalidate();
 
+        // Generate a new session token
         $request->session()->regenerateToken();
 
         return redirect()->route('auth.login');

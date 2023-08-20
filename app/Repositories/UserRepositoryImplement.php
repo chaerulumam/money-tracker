@@ -14,6 +14,7 @@ class UserRepositoryImplement implements UserRepositoryInterface
 
     public function attemptLogin(array $credentials)
     {
+        // attemp to log in with valid credentials
         return Auth::attempt($credentials);
     }
 
