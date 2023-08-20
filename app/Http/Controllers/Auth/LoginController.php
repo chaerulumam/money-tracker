@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -29,18 +30,19 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        if ($this->userRepository->attemptLogin($credentials)) {
-            return redirect()->route('dashboard');
-        } else {
-            // get email based users table for credentials check
-            $user = $this->userRepository->findByEmail($credentials['email']);
+        $user = $this->userRepository->findByEmail($credentials['email']);
 
-            if ($user) {
-                return back()->withErrors(['password' => 'Credentials does not match']);
-            } else {
-                return back()->withErrors(['email' => 'Account not found']);
-            }
+        if (!$user) {
+            return back()->withErrors(['email' => "Acount not found!"]);
         }
+
+        if (!Hash::check($credentials['password'], $user->password)) {
+            return back()->withErrors(['password' => "Credentials not match!"]);
+        }
+
+        auth()->login($user);
+
+        return redirect()->route('dashboard');
     }
 
     public function logout(Request $request)
@@ -50,7 +52,7 @@ class LoginController extends Controller
         // Invalidate all session user logged in before.
         $request->session()->invalidate();
 
-        // Generate a new session token
+        // Generate a new session token 
         $request->session()->regenerateToken();
 
         return redirect()->route('auth.login');

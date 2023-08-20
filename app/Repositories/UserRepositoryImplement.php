@@ -12,12 +12,6 @@ class UserRepositoryImplement implements UserRepositoryInterface
         return User::create($data);
     }
 
-    public function attemptLogin(array $credentials)
-    {
-        // attemp to log in with valid credentials
-        return Auth::attempt($credentials);
-    }
-
     public function findByEmail($email)
     {
         return User::where('email', $email)->first();
