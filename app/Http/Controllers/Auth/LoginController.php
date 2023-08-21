@@ -40,6 +40,7 @@ class LoginController extends Controller
             return back()->withErrors(['password' => "Credentials not match!"]);
         }
 
+        // This function creating an authenticated session, allowing them to access protected areas of the application.
         auth()->login($user);
 
         return redirect()->route('dashboard');
@@ -49,10 +50,10 @@ class LoginController extends Controller
     {
         Auth::logout();
 
-        // Invalidate all session user logged in before.
+        // Invalidate the existing session data, and rendering the session invalid
         $request->session()->invalidate();
 
-        // Generate a new session token 
+        // Generate a new session token to prevent CSRF
         $request->session()->regenerateToken();
 
         return redirect()->route('auth.login');
