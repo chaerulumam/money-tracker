@@ -17,7 +17,6 @@ class RegisterController extends Controller
     {
         $this->userRepository = $userRepository;
     }
-
     public function index()
     {
         return view("auth.register");
