@@ -26,3 +26,6 @@ Route::post('/register', [RegisterController::class, 'store'])->name('auth.regis
 Route::get('/login', [LoginController::class, 'index'])->name('auth.login');
 Route::post('/login', [LoginController::class, 'store'])->name('auth.login.store');
 Route::get('/logout', [LoginController::class, 'logout'])->name('auth.logout');
+
+Route::get('/google', [LoginController::class, 'google'])->name('auth.login.google');
+Route::get('/login/google/callback', [LoginController::class, 'handleCallbackSocialite'])->name('auth.login.google.callback');
