@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('auth')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 // Route::middleware('auth')->group(function () {
@@ -31,3 +33,10 @@ Route::post('/register', [RegisterController::class, 'store'])->name('auth.regis
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
 Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
 Route::post('categories/create', [CategoryController::class, 'store'])->name('categories.store');
+
+Route::get('/login', [LoginController::class, 'index'])->name('auth.login');
+Route::post('/login', [LoginController::class, 'store'])->name('auth.login.store');
+Route::get('/logout', [LoginController::class, 'logout'])->name('auth.logout');
+
+Route::get('/google', [LoginController::class, 'google'])->name('auth.login.google');
+Route::get('/login/google/callback', [LoginController::class, 'handleCallbackSocialite'])->name('auth.login.google.callback');
