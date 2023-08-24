@@ -8,4 +8,5 @@ interface CategoryRepositoryInterface
     public function create(array $data);
     public function findDataById(int $id);
     public function updateDataById(Int $id, array $data);
+    public function deleteDataById(Int $id);
 }

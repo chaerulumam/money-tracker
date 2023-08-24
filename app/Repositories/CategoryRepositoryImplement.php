@@ -51,4 +51,17 @@ class CategoryRepositoryImplement implements CategoryRepositoryInterface
 
         return $category;
     }
+
+    public function deleteDataById(int $id)
+    {
+        // initialize find id and delete data
+        $category = DB::table('categories')->where('id', $id)->delete($id);
+
+        // check data first
+        if (!$category) {
+            throw new \Exception('Delete data failed');
+        }
+
+        return $category;
+    }
 }
