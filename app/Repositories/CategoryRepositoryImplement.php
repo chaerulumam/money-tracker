@@ -41,8 +41,11 @@ class CategoryRepositoryImplement implements CategoryRepositoryInterface
 
     public function updateDataById(int $id, array $data)
     {
+        // allowed data initialize
+        $updatedData = ['title' => $data['title']];
+
         // initialize find id and update data
-        $category = DB::table('categories')->where('id', $id)->update($data);
+        $category = DB::table('categories')->where('id', $id)->update($updatedData);
 
         // check data first
         if (!$category) {
