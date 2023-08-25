@@ -31,7 +31,6 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-
 Route::get('/register', [RegisterController::class, 'index'])->name('auth.register');
 Route::post('/register', [RegisterController::class, 'store'])->name('auth.register.store');
 
