@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Repositories\CategoryRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -41,5 +42,33 @@ class CategoryController extends Controller
         $this->categoryRepository->create($data);
 
         return redirect()->route('categories');
+    }
+
+    public function edit($id)
+    {
+        // initialize data category by id
+        $category = $this->categoryRepository->findDataById($id);
+
+        // parsing id to category view
+        return view('categories.edit', [
+            'category' => $category
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        // initialize data value
+        $data = ['title' => $request->input('title')];
+
+        try {
+            // check the data first
+            $this->categoryRepository->updateDataById($id, $data);
+
+            // if succes redirect to category dashboatd
+            return redirect()->route('categories')->with('success', 'Successfully update category data');
+        } catch (\Throwable $th) {
+            // if fail back to category edit page or route
+            return back()->with('error', 'Failed to update category');
+        }
     }
 }

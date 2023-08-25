@@ -17,16 +17,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// initialize middleware to access dashboard
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    // initialize routes group with categories endpoint
+    Route::group(['prefix' => 'categories'], function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('categories');
+        Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
+        Route::post('/create', [CategoryController::class, 'store'])->name('categories.store');
+        route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('categories.edit');
+        route::patch('/edit/{id}', [CategoryController::class, 'update'])->name('categories.update');
+    });
 });
 
 Route::get('/register', [RegisterController::class, 'index'])->name('auth.register');
 Route::post('/register', [RegisterController::class, 'store'])->name('auth.register.store');
-
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
-Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-Route::post('categories/create', [CategoryController::class, 'store'])->name('categories.store');
 
 Route::get('/login', [LoginController::class, 'index'])->name('auth.login');
 Route::post('/login', [LoginController::class, 'store'])->name('auth.login.store');

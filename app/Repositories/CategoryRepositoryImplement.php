@@ -25,4 +25,33 @@ class CategoryRepositoryImplement implements CategoryRepositoryInterface
         // insert new data to table categories
         $data = DB::table('categories')->insert($data);
     }
+
+    public function findDataById(int $id)
+    {
+        // initialize find id
+        $category = DB::table('categories')->where('id', $id)->first();
+
+        // initialize check first
+        if (!$category) {
+            throw new \Exception('Category not found');
+        }
+
+        return $category;
+    }
+
+    public function updateDataById(int $id, array $data)
+    {
+        // allowed data initialize
+        $updatedData = ['title' => $data['title']];
+
+        // initialize find id and update data
+        $category = DB::table('categories')->where('id', $id)->update($updatedData);
+
+        // check data first
+        if (!$category) {
+            throw new \Exception('Update failed');
+        }
+
+        return $category;
+    }
 }
