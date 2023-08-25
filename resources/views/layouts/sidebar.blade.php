@@ -22,6 +22,15 @@
           </li>
 
           <li class="nav-item">
+            <a href="{{ route('categories') }}" class="nav-link {{ (request()->is('categories*')) ? 'active' : '' }}">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                Categories
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="{{ route('auth.logout') }}" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>

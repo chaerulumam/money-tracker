@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,10 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/register', [RegisterController::class, 'index'])->name('auth.register');
 Route::post('/register', [RegisterController::class, 'store'])->name('auth.register.store');
+
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
+Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+Route::post('categories/create', [CategoryController::class, 'store'])->name('categories.store');
 
 Route::get('/login', [LoginController::class, 'index'])->name('auth.login');
 Route::post('/login', [LoginController::class, 'store'])->name('auth.login.store');

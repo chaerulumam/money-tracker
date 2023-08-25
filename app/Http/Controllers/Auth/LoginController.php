@@ -60,6 +60,7 @@ class LoginController extends Controller
         // Generate a new session token to prevent CSRF
         $request->session()->regenerateToken();
 
+        // redirect to login page after logout
         return redirect()->route('auth.login');
     }
 
