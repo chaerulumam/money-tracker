@@ -21,12 +21,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 });
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/', function () {
-//         return view('welcome');
-//     });
-// });
-
 Route::get('/register', [RegisterController::class, 'index'])->name('auth.register');
 Route::post('/register', [RegisterController::class, 'store'])->name('auth.register.store');
 
