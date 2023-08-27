@@ -33,8 +33,14 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $category->title }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-danger">Delete</a>
-                                            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info">Edit</a>
+                                            <div class="d-flex">
+                                                <form action="{{ route('categories.delete', $category->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info ml-1">Edit</a>
+                                            </div>
                                         </td>
                                     </tr>    
                                     @endforeach

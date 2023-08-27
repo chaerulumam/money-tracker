@@ -71,4 +71,18 @@ class CategoryController extends Controller
             return back()->with('error', 'Failed to update category');
         }
     }
+
+    public function destroy($id)
+    {
+        try {
+            // check the data first
+            $this->categoryRepository->deleteDataById($id);
+
+            // if the data available, then delete
+            return redirect()->route('categories')->with('success', 'Successfully delete category data');
+        } catch (\Throwable $th) {
+            // if the data not found, then return error
+            return back()->with('error', 'Failed to delete category');
+        }
+    }
 }
