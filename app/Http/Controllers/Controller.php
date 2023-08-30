@@ -15,7 +15,7 @@ use Illuminate\Routing\Controller as BaseController;
  *          }
  *      },
  *      title="L5 OpenApi",
- *      description="L5 Swagger OpenApi description",
+ *      description="List API Category Documentation",
  *      @OA\Contact(
  *          email="darius@matulionis.lt"
  *      ),

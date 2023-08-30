@@ -34,7 +34,7 @@ class CategoryController extends Controller
      * @OA\Get(
      *     path="/api/categories",
      *     summary="Get all categories",
-     *     tags={"Categories Data"},
+     *     tags={"Category"},
      *     @OA\Response(
      *         response="200",
      *         description="List of categories",
@@ -63,7 +63,7 @@ class CategoryController extends Controller
      * @OA\Post(
      *     path="/api/categories",
      *     summary="Create a new category",
-     *     tags={"Create a new Category Data"},
+     *     tags={"Category"},
      *     @OA\RequestBody(
      *         @OA\JsonContent(
      *             type="object",
@@ -106,7 +106,7 @@ class CategoryController extends Controller
      * @OA\Get(
      *     path="/api/category/{id}",
      *     summary="Get a category by ID",
-     *     tags={"Category by ID"},
+     *     tags={"Category"},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -151,7 +151,7 @@ class CategoryController extends Controller
      * @OA\Put(
      *     path="/api/category/{id}",
      *     summary="Update a category by ID",
-     *     tags={"Category Update"},
+     *     tags={"Category"},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -202,7 +202,7 @@ class CategoryController extends Controller
      * @OA\Delete(
      *     path="/api/category/{id}",
      *     summary="Delete a category by ID",
-     *     tags={"Category Delete"},
+     *     tags={"Category"},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "L5 OpenApi",
-        "description": "L5 Swagger OpenApi description",
+        "description": "List API Category Documentation",
         "contact": {
             "email": "darius@matulionis.lt"
         },
@@ -16,10 +16,139 @@
         }
     },
     "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User registration",
+                "operationId": "76a1cbaea48a581595406d4dd685cc2c",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Registration successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Registration successful"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string"
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "bearer"
+                                        },
+                                        "expires_in": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/categories": {
             "get": {
                 "tags": [
-                    "Categories Data"
+                    "Category"
                 ],
                 "summary": "Get all categories",
                 "operationId": "d2f6531c17cf5e29c0c1f44be77133a1",
@@ -57,7 +186,7 @@
             },
             "post": {
                 "tags": [
-                    "Create a new Category Data"
+                    "Category"
                 ],
                 "summary": "Create a new category",
                 "operationId": "520c0a7d7744b9c3ff328738c6106541",
@@ -113,7 +242,7 @@
         "/api/category/{id}": {
             "get": {
                 "tags": [
-                    "Category by ID"
+                    "Category"
                 ],
                 "summary": "Get a category by ID",
                 "operationId": "bcc8cdd9e2f54e74a2c7606066f29a3b",
@@ -174,7 +303,7 @@
             },
             "put": {
                 "tags": [
-                    "Category Update"
+                    "Category"
                 ],
                 "summary": "Update a category by ID",
                 "operationId": "7b76ae566bda9c9173bcab12fa9b5eb7",
@@ -239,7 +368,7 @@
             },
             "delete": {
                 "tags": [
-                    "Category Delete"
+                    "Category"
                 ],
                 "summary": "Delete a category by ID",
                 "operationId": "183842f2b51d476dbcd66e0829a064a4",
