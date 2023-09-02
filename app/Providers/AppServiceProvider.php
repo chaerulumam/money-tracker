@@ -18,6 +18,8 @@ class AppServiceProvider extends ServiceProvider
         // registered the Repository Pattern
         $this->app->bind(UserRepositoryInterface::class, UserRepositoryImplement::class);
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepositoryImplement::class);
+
+        $this->app->register(\L5Swagger\L5SwaggerServiceProvider::class);
     }
 
     /**
